@@ -10,8 +10,6 @@ class MassiveSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         /*
         |--------------------------------------------------------------------------
         | Categories
@@ -199,7 +197,7 @@ class MassiveSeeder extends Seeder
         for ($i = 1; $i <= 20000; $i++) {
 
             $payments[] = [
-                'order_id' => $i,
+                'order_id' => $i <= 20000,
                 'amount' => rand(50, 5000),
                 'payment_method' => fake()->randomElement([
                     'pix',
@@ -218,7 +216,6 @@ class MassiveSeeder extends Seeder
         }
 
         DB::table('payments')->insert($payments);
-
         /*
         |--------------------------------------------------------------------------
         | Reviews
@@ -339,7 +336,7 @@ class MassiveSeeder extends Seeder
         for ($i = 1; $i <= 500; $i++) {
 
             $coupons[] = [
-                'code' => strtoupper(fake()->bothify('CUPOM-####')),
+                'code' => 'CUPOM-' . str_pad($i, 6, '0', STR_PAD_LEFT),
                 'discount_percentage' => rand(5, 50),
                 'expires_at' => now()->addDays(rand(30, 365)),
                 'active' => fake()->boolean(80),
@@ -349,7 +346,5 @@ class MassiveSeeder extends Seeder
         }
 
         DB::table('coupons')->insert($coupons);
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }
