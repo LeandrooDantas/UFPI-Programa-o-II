@@ -1,4 +1,9 @@
-<h2>Consulta Rápida (Com Cache)</h2>
+<div>
+    <h2>Consulta Rápida (Com Cache)</h2>
+
+    <a href="{{ route('slow.query') }}"><button>Consulta Lenta</button></a>
+    <a href="{{ route('benchmark') }}"><button>Benchmark</button></a>
+</div>
 <p>Tempo: {{ number_format($time, 5) }} segundos</p>
 <p>Registros: {{ count($orders) }}</p>
 <table>
