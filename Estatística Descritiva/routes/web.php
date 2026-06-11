@@ -1,15 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QueryController;
+use Illuminate\Support\Facades\Cache;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/slow-query', function () {
-    return view('slow-query');})
-        ->name('dashboard');
+Route::get('/fast-query', [QueryController::class, 'fast']);
 
-Route::get('/fast-query', function () {
-    return view('fast-query');})
-        ->name('dashboard');
+Route::get('/slow-query', [QueryController::class, 'slow']);
+
+Route::get('/teste-redis', function () {
+    Cache::put('teste', 'Redis funcionando!', 600);
+
+    return Cache::get('teste');
+});
