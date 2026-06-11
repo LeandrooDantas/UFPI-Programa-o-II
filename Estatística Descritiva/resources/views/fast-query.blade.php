@@ -1,21 +1,21 @@
 <h2>Consulta Rápida (Com Cache)</h2>
 <p>Tempo: {{ number_format($time, 5) }} segundos</p>
-<p>Registros: {{ $orders->count() }}</p>
+<p>Registros: {{ count($orders) }}</p>
 <table>
     <tr>
-        <th>Pedido</th>
         <th>Cliente</th>
-        <th>Produto</th>
-        <th>Qtd</th>
-        <th>Total</th>
+        <th>Total Pedidos</th>
+        <th>Total Itens</th>
+        <th>Total Gasto</th>
+        <th>Média Ticket</th>
     </tr>
-    @foreach($orders->take(50) as $order)
+    @foreach($orders as $order)
         <tr>
-            <td>{{ $order->id }}</td>
-            <td>{{ $order->name }}</td>
-            <td>{{ $order->product_name }}</td>
-            <td>{{ $order->quantity }}</td>
-            <td>{{ $order->total_amount }}</td>
+            <td>{{ $order['customer'] }}</td>
+            <td>{{ $order['total_orders'] }}</td>
+            <td>{{ $order['total_items'] }}</td>
+            <td>{{ $order['total_spent'] }}</td>
+            <td>{{ $order['avg_ticket'] }}</td>
         </tr>
     @endforeach
 </table>
